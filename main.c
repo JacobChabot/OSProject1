@@ -10,12 +10,27 @@ void help() {
 }
 
 // input file function
-void inputFile() {
+void inputFile(char * name) {
+	// use fork and wait?
 	printf("input file function\n");
+	
+	// open file and read the first number to determine how many loops are needed
+	FILE * file = fopen(name, "r");
+	int firstLine;
+	fscanf(file, "%d", &firstLine);
+	printf("First line of file: %d\n", firstLine);
+	
+	// is this where I set up for loop and start forking? 
+	int i;
+	for (i = 0; i < firstLine; i++) {
+		printf("Loop\n");
+	}
+	
+	fclose(file);
 }
 
 //output file function
-void outputFile() {
+void outputFile(char * name) {
 	printf("output file function\n");
 }
 
@@ -23,38 +38,32 @@ void outputFile() {
 int main(int argc, char** argv) {
 	printf("hello world\n");
 
-	// this inserts the file name if given only if the appropriate number of arguments are passed
-	// this is to prevent a segmentation fault
-	char * fName;
-	if (argc > 2) {
-		fName = strdup(argv[2]);
-		printf("%s", fName);
-	}
-	else {
-		fName = strdup("blank");
-		printf("%s", fName);
-	}
-		
+	char * inputFileName = "input.dat";
+	char * outputFileName = "output.dat";
+
+
+
 	// this specifies what option the user selected using getopt and calls the
 	// appropriate function	
-	int option;
-	while((option = getopt(argc, argv, "hio:")) != -1) {
-		switch(option) {
+	char ch;
+	while((ch = getopt(argc, argv, "hi::o::")) != -1) { // need help with accepting arguments
+		switch(ch) {
 			case 'h':
 				help();
 				break;
 			case 'i':
-				inputFile();
+				//inputFileName = optarg;
+				inputFile(inputFileName);
 				continue;
 			case 'o':
-				outputFile();
+				//outputFileName = optarg;
+				outputFile(outputFileName);
 				continue;
 			default:
 				help();
 				break;
 		}
 	}
-
 
 
 	return 0;
