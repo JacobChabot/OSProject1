@@ -21,7 +21,7 @@ void processFile() {
 	file = fopen(inputFileName, "r");
 	// check if the file was successfuly opened
 	if (file == NULL) {
-		fprintf(stderr, "Invalid input file name");
+		fprintf(stderr, "Invalid input file name\n");
 		exit(0);
 	}
 	
@@ -90,7 +90,8 @@ void processFile() {
 		
 		// assign children's PID to the array
 		childTotal[i] = childPid;
-			
+		
+		// on the last loop, the child PIDs and parent PID are written to the file	
 		if (i + 1 == numbers[0]) {
 			fprintf(file, "All children were: ");
 			length = sizeof(childTotal)/sizeof(childTotal[0]);
@@ -131,8 +132,8 @@ int main(int argc, char** argv) {
 				outputFileName = strdup(optarg);
 				continue;
 			default:
-				//fprintf(stderr, "Unrecogonized options\n");
-				// if the user choose no options then it will use the default input.dat and output.dat file names
+				fprintf(stderr, "Unrecogonized options\n");
+				//if the user choose no options then it will use the default input.dat and output.dat file names
 				break;
 		}
 	}
