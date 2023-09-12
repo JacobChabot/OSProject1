@@ -1,0 +1,18 @@
+## README File ##
+
+This program consists of accepting an input file, putting the various numbers in a stack then putting them in reverse along with the process IDs of the child.
+
+
+The general execution looks like: ./main [-h] [-i <inputfilename>] [-o <outputfilename>]
+-i and -o are optional but require parameters if they are typed. The default file names are input.dat and output.dat if no options are selected. 
+
+
+The biggest challenge I had during this assignment was how to put the numbers from the file into a stack. I ended up copying all the numbers into an array, and then kept track of where I was 
+in the array during execution. The variable int read started off as 1 to be on the first postion in the array, right where the actual processing of the numbers occured. This is where
+the number tells you how many numbers are following it.
+One issue I had was writing the different Child PIDs to the output file. I was trying to do it in the child process at the very end of the loop and I didnt realize the parent process
+was overriding the integer array I had created to store the different child PIDs. I ended up doing the output to the file in the parent process on the final loop. 
+
+
+My GitRepo can be found at:
+https://github.com/JacobChabot/OSProject1/
